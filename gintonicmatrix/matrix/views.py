@@ -19,4 +19,4 @@ def index(request):
                     mean += evaluation.rating / len(evaluations)
                 evaluation_row.append(mean)
         evaluation_rows.append((tonic, evaluation_row))
-    return render(request, "matrix/list.html", locals())
+    return render(request, "matrix/matrix.html", locals())

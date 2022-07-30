@@ -1,12 +1,17 @@
-{% load render_table from django_tables2 %}
-{% load static %}
-
 <!doctype html>
-<html>
-    <head>
-        <link rel="stylesheet" href="{% static 'ticket/static/css/screen.css' %}" />
-    </head>
-    <body>
-        {% render_table evaluations %}
-    </body>
-</html>
+<table>
+    <tr>
+        <th></th>
+        {% for item in gins %}
+        <th>{{ item }}</th>
+        {% endfor %}
+    </tr>
+    {% for tonic, evaluation in evaluation_rows %}
+    <tr>
+        <th>{{ tonic }}</th>
+        {% for item in evaluation %}
+        <td>{{ item }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>

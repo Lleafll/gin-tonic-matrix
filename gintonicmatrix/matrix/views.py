@@ -1,5 +1,8 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import GinTonicEvaluation
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the matrix index.")
+    evaluations = GinTonicEvaluation.objects.all()
+    return render(request, "matrix/list.html", locals())

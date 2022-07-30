@@ -2,19 +2,19 @@ from django.db import models
 
 
 class Drinker(models.Model):
-    name = models.CharField(50)
+    name = models.CharField(max_length=50)
 
 
 class Gin(models.Model):
-    name = models.CharField(50)
+    name = models.CharField(max_length=50)
 
 
 class Tonic(models.Model):
-    name = models.CharField(50)
+    name = models.CharField(max_length=50)
 
 
 class Ingredient(models.Model):
-    name = models.CharField(50)
+    name = models.CharField(max_length=50)
 
 
 class GinTonicEvaluation(models.Model):
@@ -28,5 +28,5 @@ class GinTonicEvaluation(models.Model):
     gin = models.ForeignKey(Gin, on_delete=models.PROTECT)
     tonic = models.ForeignKey(Tonic, on_delete=models.PROTECT)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.PROTECT)
-    rating = models.IntegerField(choices=Rating)
+    rating = models.IntegerField(choices=Rating.choices)
     created = models.DateTimeField("Rated on")

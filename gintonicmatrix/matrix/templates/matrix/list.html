@@ -14,7 +14,7 @@
     <tr>
         <th>{{ tonic }}</th>
         {% for item in evaluation %}
-        <td>{{ item }}</td>
+        <td>{% if item is None %} - {% else %}{{ item}}{% endif %}</td>
         {% endfor %}
     </tr>
     {% endfor %}

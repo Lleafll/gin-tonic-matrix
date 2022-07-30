@@ -11,9 +11,12 @@ def index(request):
         evaluation_row = []
         for gin in gins:
             evaluations = GinTonicEvaluation.objects.filter(gin=gin, tonic=tonic)
-            mean = 0.0
-            for evaluation in evaluations:
-                mean += evaluation.rating / len(evaluations)
-            evaluation_row.append(mean)
+            if len(evaluations) == 0:
+                evaluation_row.append(None)
+            else:
+                mean = 0.0
+                for evaluation in evaluations:
+                    mean += evaluation.rating / len(evaluations)
+                evaluation_row.append(mean)
         evaluation_rows.append((tonic, evaluation_row))
     return render(request, "matrix/list.html", locals())

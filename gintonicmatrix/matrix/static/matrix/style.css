@@ -8,7 +8,7 @@ td {
   vertical-align: middle;
 }
 
-td._40 {background-color: #00429d;}
+td._40 {background-color: #00429d; color: white}
 td._35 {background-color: #2e59a8;}
 td._30 {background-color: #4771b2;}
 td._25 {background-color: #5d8abd;}
@@ -17,7 +17,10 @@ td._15 {background-color: #8abccf;}
 td._10 {background-color: #a5d5d8;}
 td._05 {background-color: #c5eddf;}
 td._00 {background-color: #ffffe0;}
-td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover, td._05:hover, td._00:hover {background-color: #ddd;}
+td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover, td._05:hover, td._00:hover {
+    color: black;
+    background-color: #ddd;
+}
 
 th {
   padding-top: 12px;
@@ -26,4 +29,3 @@ th {
   background-color: #4984b8;
   color: white;
 }
-th:hover {background-color: #ddd;}

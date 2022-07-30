@@ -1,0 +1,8 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
+
+<!doctype html>
+{% for evaluation in evaluations %}
+<p>{{ evaluation.created }}: {{ evaluation }}: {{ evaluation.rating }}</p>
+{% endfor %}

@@ -13,7 +13,7 @@
     {% for tonic, evaluation in evaluation_rows %}
     <tr>
         <th>{{ tonic }}</th>
-        {% for item in evaluation %}
+        {% for gin, item in evaluation %}
             {% if item is None %}
             <td>-</td>
             {% else %}
@@ -27,7 +27,7 @@
                 {% if item < 1.25 and item >= 0.75 %}_10{% endif %}
                 {% if item < 0.75 and item >= 0.25 %}_05{% endif %}
                 {% if item < 0.25 %}_00{% endif %}">
-            {{ item }}
+            <a href="{% url 'matrix:evaluations' gin.id tonic.id %}">{{ item }}</a>
             </td>
             {% endif %}
         {% endfor %}

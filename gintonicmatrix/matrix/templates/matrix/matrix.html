@@ -44,7 +44,7 @@
         <th>{{ tonic }}</th>
         {% for gin, item in evaluation %}
         {% if item is None %}
-        <td>-</td>
+        <td><a href="{% url 'matrix:evaluations' gin.id tonic.id %}">-</a></td>
         {% else %}
         <td class="
                 {% if item >= 3.75 %}_40{% endif %}

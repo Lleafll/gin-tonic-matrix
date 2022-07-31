@@ -21,7 +21,7 @@ td._25 {background-color: #d4d4d4;}
 td._20 {background-color: #dca6a6;}
 td._15 {background-color: #dc767a;}
 td._10 {background-color: #de425b;}
-td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover {
+td:hover, td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover {
     color: black;
     background-color: #ddd;
 }

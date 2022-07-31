@@ -20,6 +20,5 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='matrix:index')),
     path('matrix/', include('matrix.urls')),
-    path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]

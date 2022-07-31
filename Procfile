@@ -1,1 +1,1 @@
-web: gunicorn gintonicmatrix.wsgi
+web: gunicorn --pythonpath gintonicmatrix gintonicmatrix.wsgi

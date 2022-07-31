@@ -1,11 +1,12 @@
 from django.shortcuts import render
 
-from .models import Gin, GinTonicEvaluation, Tonic
+from .models import Drinker, Gin, GinTonicEvaluation, Tonic
 
 
 def index(request):
     gins = Gin.objects.all()
     tonics = Tonic.objects.all()
+    drinkers = Drinker.objects.all()
     evaluation_rows = []
     for tonic in tonics:
         evaluation_row = []
@@ -22,7 +23,10 @@ def index(request):
     return render(
         request,
         "matrix/matrix.html",
-        {"gins": gins, "tonics": tonics, "evaluation_rows": evaluation_rows})
+        {"drinkers": drinkers,
+         "gins": gins,
+         "tonics": tonics,
+         "evaluation_rows": evaluation_rows})
 
 
 def evaluations(request, gin, tonic):

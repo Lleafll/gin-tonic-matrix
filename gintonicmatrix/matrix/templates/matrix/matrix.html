@@ -3,6 +3,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
 
 <!doctype html>
+<select>
+    <option value="all">Alle Trinker</option>
+    {% for drinker in drinkers %}
+    <option value="{{ drinker }}">{{ drinker }}</option>
+    {% endfor %}
+</select>
+<select>
+    <option value="all">Alle Ingredients</option>
+    {% for drinker in drinkers %}
+    <option value="{{ drinker }}">{{ drinker }}</option>
+    {% endfor %}
+</select>
+
 <table>
     <tr>
         <th></th>
@@ -14,10 +27,10 @@
     <tr>
         <th>{{ tonic }}</th>
         {% for gin, item in evaluation %}
-            {% if item is None %}
-            <td>-</td>
-            {% else %}
-            <td class="
+        {% if item is None %}
+        <td>-</td>
+        {% else %}
+        <td class="
                 {% if item >= 3.75 %}_40{% endif %}
                 {% if item < 3.75 and item >= 3.25 %}_35{% endif %}
                 {% if item < 3.25 and item >= 2.75 %}_30{% endif %}
@@ -28,8 +41,8 @@
                 {% if item < 0.75 and item >= 0.25 %}_05{% endif %}
                 {% if item < 0.25 %}_00{% endif %}">
             <a href="{% url 'matrix:evaluations' gin.id tonic.id %}">{{ item }}</a>
-            </td>
-            {% endif %}
+        </td>
+        {% endif %}
         {% endfor %}
     </tr>
     {% endfor %}

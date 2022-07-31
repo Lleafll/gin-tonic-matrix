@@ -3,18 +3,28 @@
 <link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
 
 <!doctype html>
-<select>
-    <option value="all">Alle Trinker</option>
-    {% for drinker in drinkers %}
-    <option value="{{ drinker }}">{{ drinker }}</option>
-    {% endfor %}
-</select>
-<select>
-    <option value="all">Alle Ingredients</option>
-    {% for ingredient in ingredients %}
-    <option value="{{ ingredient }}">{{ ingredient }}</option>
-    {% endfor %}
-</select>
+
+<form action="{% url 'matrix:index' %}" method="post">
+    {% csrf_token %}
+    <select name="drinker" onchange="this.form.submit()">
+        <option value=none>Alle Trinker</option>
+        {% for drinker in drinkers %}
+        {% if selected_drinker == drinker %}
+        <option value="{{ drinker.id }}" selected>
+        {% else %}
+        <option value="{{ drinker.id }}">
+        {% endif %}
+        {{ drinker }}
+        </option>
+        {% endfor %}
+    </select>
+    <select name="ingredient" onchange="this.form.submit()">
+        <option value="all">Alle Ingredients</option>
+        {% for ingredient in ingredients %}
+        <option value="{{ ingredient.id }}">{{ ingredient }}</option>
+        {% endfor %}
+    </select>
+</form>
 
 <table cellspacing="0" cellpadding="0">
     <tr>

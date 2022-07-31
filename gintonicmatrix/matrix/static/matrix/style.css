@@ -1,6 +1,10 @@
+body {
+  background-color: #202020;
+}
+
 td, th {
-  border: 1px solid #ddd;
   padding: 8px;
+  border: 1px solid black;
 }
 
 td {
@@ -33,7 +37,7 @@ th {
 select {
   padding-top: 12px;
   padding-bottom: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   text-align: left;
   background-color: #4984b8;
   color: white;

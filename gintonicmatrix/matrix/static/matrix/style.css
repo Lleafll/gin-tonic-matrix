@@ -14,16 +14,14 @@ td {
   background-color: #6c6c6c;
 }
 
-td._40 {background-color: #00429d; color: white}
-td._35 {background-color: #2e59a8;}
-td._30 {background-color: #4771b2;}
-td._25 {background-color: #5d8abd;}
-td._20 {background-color: #73a2c6;}
-td._15 {background-color: #8abccf;}
-td._10 {background-color: #a5d5d8;}
-td._05 {background-color: #c5eddf;}
-td._00 {background-color: #ffffe0;}
-td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover, td._05:hover, td._00:hover {
+td._40 {background-color: #0e86d4;}
+td._35 {background-color: #729fd5;}
+td._30 {background-color: #a7b9d5;}
+td._25 {background-color: #d4d4d4;}
+td._20 {background-color: #dca6a6;}
+td._15 {background-color: #dc767a;}
+td._10 {background-color: #de425b;}
+td._40:hover, td._35:hover, td._30:hover, td._25:hover, td._20:hover, td._15:hover, td._10:hover {
     color: black;
     background-color: #ddd;
 }

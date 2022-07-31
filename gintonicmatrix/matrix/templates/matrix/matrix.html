@@ -53,9 +53,7 @@
                 {% if item < 2.75 and item >= 2.25 %}_25{% endif %}
                 {% if item < 2.25 and item >= 1.75 %}_20{% endif %}
                 {% if item < 1.75 and item >= 1.25 %}_15{% endif %}
-                {% if item < 1.25 and item >= 0.75 %}_10{% endif %}
-                {% if item < 0.75 and item >= 0.25 %}_05{% endif %}
-                {% if item < 0.25 %}_00{% endif %}">
+                {% if item < 1.25}_10{% endif %}">
             <a href="{% url 'matrix:evaluations' gin.id tonic.id %}">{{ item|floatformat:1 }}</a>
         </td>
         {% endif %}

@@ -12,6 +12,11 @@ def index(request):
         selected_drinker = Drinker.objects.get(pk=request.POST["drinker"])
     except (KeyError, ValueError, Drinker.DoesNotExist):
         selected_drinker = None
+    try:
+        selected_ingredient = Ingredient.objects.get(
+            pk=request.POST["ingredient"])
+    except (KeyError, ValueError, Ingredient.DoesNotExist):
+        selected_ingredient = None
     evaluation_rows = []
     for tonic in tonics:
         evaluation_row = []
@@ -19,6 +24,8 @@ def index(request):
             lookup = {"gin": gin, "tonic": tonic}
             if selected_drinker is not None:
                 lookup["drinker"] = selected_drinker
+            if selected_ingredient is not None:
+                lookup["ingredient"] = selected_ingredient
             gin_tonic = GinTonicEvaluation.objects.filter(**lookup)
             if len(gin_tonic) == 0:
                 evaluation_row.append((gin, None))
@@ -32,6 +39,7 @@ def index(request):
         request,
         "matrix/matrix.html",
         {"selected_drinker": selected_drinker,
+         "selected_ingredient": selected_ingredient,
          "drinkers": drinkers,
          "gins": gins,
          "tonics": tonics,

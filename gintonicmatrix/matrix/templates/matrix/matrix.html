@@ -11,17 +11,21 @@
         {% for drinker in drinkers %}
         {% if selected_drinker == drinker %}
         <option value="{{ drinker.id }}" selected>
-        {% else %}
-        <option value="{{ drinker.id }}">
-        {% endif %}
-        {{ drinker }}
+            {% else %}
+        <option value="{{ drinker.id }}">{% endif %}
+            {{ drinker }}
         </option>
         {% endfor %}
     </select>
     <select name="ingredient" onchange="this.form.submit()">
-        <option value="all">Alle Ingredients</option>
+        <option value=none>Alle Ingredients</option>
         {% for ingredient in ingredients %}
-        <option value="{{ ingredient.id }}">{{ ingredient }}</option>
+        {% if selected_ingredient == ingredient %}
+        <option value="{{ ingredient.id }}" selected>
+            {% else %}
+        <option value="{{ ingredient.id }}">{% endif %}
+            {{ ingredient }}
+        </option>
         {% endfor %}
     </select>
 </form>

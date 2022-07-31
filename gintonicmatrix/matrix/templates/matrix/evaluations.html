@@ -3,6 +3,23 @@
 <link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
 
 <!doctype html>
-{% for evaluation in evaluations %}
-<p>{{ evaluation.created }}: {{ evaluation }}: {{ evaluation.rating }}</p>
-{% endfor %}
+<table>
+    <tr>
+        <th>Datum</th>
+        <th>Trinker</th>
+        <th>Gin</th>
+        <th>Tonic</th>
+        <th>Ingredient</th>
+        <th>Bewertung</th>
+    </tr>
+    {% for evaluation in evaluations %}
+    <tr>
+        <td>{{ evaluation.created }}</td>
+        <td>{{ evaluation.drinker }}</td>
+        <td>{{ evaluation.gin }}</td>
+        <td>{{ evaluation.tonic }}</td>
+        <td>{{ evaluation.ingredient }}</td>
+        <td>{{ evaluation.rating }}</td>
+    </tr>
+    {% endfor %}
+</table>

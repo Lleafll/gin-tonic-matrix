@@ -48,6 +48,13 @@ def index(request):
 
 
 def evaluations(request, gin, tonic):
+    drinkers = Drinker.objects.all()
+    ingredients = Ingredient.objects.all()
+    ratings = ("Sehr gut", "Gut", "Mittelmäßig", "Nee")
     gin_tonic = GinTonicEvaluation.objects.filter(gin=gin, tonic=tonic)
     return render(
-        request, "matrix/evaluations.html", {"evaluations": gin_tonic})
+        request, "matrix/evaluations.html",
+        {"evaluations": gin_tonic,
+         "drinkers": drinkers,
+         "ingredients": ingredients,
+         "ratings": ratings})

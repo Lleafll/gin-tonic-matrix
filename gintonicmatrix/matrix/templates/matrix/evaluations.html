@@ -3,6 +3,30 @@
 <link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
 
 <!doctype html>
+
+<h1>Hinzufügen</h1>
+
+<form>
+    <select name="drinker">
+        {% for drinker in drinkers %}
+        <option value="{{ drinker.id }}">{{ drinker }}</option>
+        {% endfor %}
+    </select>
+    <select name="ingredient">
+        {% for ingredient in ingredients %}
+        <option value="{{ ingredient.id }}">{{ ingredient }}</option>
+        {% endfor %}
+    </select>
+    <select name="rating">
+        {% for rating in ratings %}
+        <option value="{{ rating.id }}">{{ rating }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Speichern">
+</form>
+
+<h1>Übersicht</h1>
+
 <table>
     <tr>
         <th>Datum</th>

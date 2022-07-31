@@ -49,3 +49,21 @@ select:hover {
   color: black;
   background-color: #ddd;
 }
+
+h1 {
+  color: white;
+}
+
+input {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: 1px solid black;
+  text-align: left;
+  background-color: #4984b8;
+  color: white;
+}
+
+input:hover {
+  color: black;
+  background-color: #ddd;
+}

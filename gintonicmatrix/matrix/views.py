@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.utils import timezone
 
 from .models import Drinker, Gin, GinTonicEvaluation, Ingredient, Tonic
 
@@ -47,14 +50,48 @@ def index(request):
          "evaluation_rows": evaluation_rows})
 
 
-def evaluations(request, gin, tonic):
+def evaluations(request, gin_id, tonic_id):
+    gin = get_object_or_404(Gin, pk=gin_id)
+    tonic = get_object_or_404(Tonic, pk=tonic_id)
     drinkers = Drinker.objects.all()
     ingredients = Ingredient.objects.all()
-    ratings = ("Sehr gut", "Gut", "Mittelmäßig", "Nee")
-    gin_tonic = GinTonicEvaluation.objects.filter(gin=gin, tonic=tonic)
-    return render(
-        request, "matrix/evaluations.html",
-        {"evaluations": gin_tonic,
-         "drinkers": drinkers,
-         "ingredients": ingredients,
-         "ratings": ratings})
+    gin_tonic = GinTonicEvaluation.objects.filter(
+        gin=gin, tonic=tonic).order_by("-created")
+    return render(request, "matrix/evaluations.html", {
+        "gin": gin,
+        "tonic": tonic,
+        "evaluations": gin_tonic,
+        "drinkers": drinkers,
+        "ingredients": ingredients})
+
+
+def evaluate(request, gin_id, tonic_id):
+    gin = get_object_or_404(Gin, pk=gin_id)
+    tonic = get_object_or_404(Tonic, pk=tonic_id)
+    try:
+        drinker = Drinker.objects.get(pk=request.POST["drinker"])
+        ingredient = Ingredient.objects.get(pk=request.POST["ingredient"])
+        rating = request.POST["ingredient"]
+    except (ValueError,
+            KeyError,
+            Drinker.DoesNotExist,
+            Ingredient.DoesNotExist):
+        drinkers = Drinker.objects.all()
+        ingredients = Ingredient.objects.all()
+        gin_tonic = GinTonicEvaluation.objects.filter(gin=gin, tonic=tonic)
+        return render(request, "matrix/evaluations.html", {
+            "gin": gin,
+            "tonic": tonic,
+            "evaluations": gin_tonic,
+            "drinkers": drinkers,
+            "ingredients": ingredients,
+            "error_message": "Bitte alle Felder ausfüllen"})
+    GinTonicEvaluation(
+        drinker=drinker,
+        gin=gin,
+        tonic=tonic,
+        ingredient=ingredient,
+        rating=rating,
+        created=timezone.now()).save()
+    return HttpResponseRedirect(
+        reverse("matrix:evaluations", args=(gin_id, tonic_id)))

@@ -4,35 +4,46 @@
 
 <!doctype html>
 
-<h1>Hinzufügen</h1>
+<h1>{{ gin }} - {{ tonic }}</h1>
 
-<form>
+<h2>Hinzufügen</h2>
+
+<form action="{% url 'matrix:evaluate' gin.id tonic.id %}" method="post">
+    {% csrf_token %}
     <select name="drinker">
+        <option></option>
         {% for drinker in drinkers %}
         <option value="{{ drinker.id }}">{{ drinker }}</option>
         {% endfor %}
     </select>
     <select name="ingredient">
+        <option></option>
         {% for ingredient in ingredients %}
-        <option value="{{ ingredient.id }}">{{ ingredient }}</option>
+        {% if selected_ingredient == ingredient %}
+        <option value="{{ ingredient.id }}" selected>
+            {% else %}
+        <option value="{{ ingredient.id }}">{% endif %}
+            {{ ingredient }}
+        </option>
         {% endfor %}
     </select>
     <select name="rating">
-        {% for rating in ratings %}
-        <option value="{{ rating.id }}">{{ rating }}</option>
-        {% endfor %}
+        <option></option>
+        <option value="4">4: Geil/Sehr gut</option>
+        <option value="3">3: Gern/In Ordnung</option>
+        <option value="2">2: Mittelmäßig/Wenn's sein muss</option>
+        <option value="1">1: Nee</option>
     </select>
     <input type="submit" value="Speichern">
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 </form>
 
-<h1>Übersicht</h1>
+<h2>Übersicht</h2>
 
 <table>
     <tr>
         <th>Datum</th>
         <th>Trinker</th>
-        <th>Gin</th>
-        <th>Tonic</th>
         <th>Ingredient</th>
         <th>Bewertung</th>
     </tr>
@@ -40,8 +51,6 @@
     <tr>
         <td>{{ evaluation.created }}</td>
         <td>{{ evaluation.drinker }}</td>
-        <td>{{ evaluation.gin }}</td>
-        <td>{{ evaluation.tonic }}</td>
         <td>{{ evaluation.ingredient }}</td>
         <td>{{ evaluation.rating }}</td>
     </tr>

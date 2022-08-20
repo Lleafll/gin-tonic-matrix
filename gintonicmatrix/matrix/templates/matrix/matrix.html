@@ -34,17 +34,54 @@
 
 <table cellspacing="0" cellpadding="0">
     <tr>
+        <td></td>
+        <td></td>
+        {% for gin_rating in gin_ratings %}
+        {% if gin_rating == 0 %}
+        <td>-</td>
+        {% else %}
+        <td class="
+        {% if gin_rating >= 3.75 %}_40{% endif %}
+        {% if gin_rating < 3.75 and gin_rating >= 3.25 %}_35{% endif %}
+        {% if gin_rating < 3.25 and gin_rating >= 2.75 %}_30{% endif %}
+        {% if gin_rating < 2.75 and gin_rating >= 2.25 %}_25{% endif %}
+        {% if gin_rating < 2.25 and gin_rating >= 1.75 %}_20{% endif %}
+        {% if gin_rating < 1.75 and gin_rating >= 1.25 %}_15{% endif %}
+        {% if gin_rating < 1.25 %}_10{% endif %}">
+            {{ gin_rating|floatformat:1 }}
+        </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    <tr>
+        <td></td>
         <th></th>
         {% for item in gins %}
         <th>{{ item }}</th>
         {% endfor %}
     </tr>
-    {% for tonic, evaluation in evaluation_rows %}
+    {% for tonic_rating, tonic, evaluation in evaluation_rows %}
     <tr>
+        {% if tonic_rating == 0 %}
+        <td>-</td>
+        {% else %}
+        <td class="
+        {% if tonic_rating >= 3.75 %}_40{% endif %}
+        {% if tonic_rating < 3.75 and tonic_rating >= 3.25 %}_35{% endif %}
+        {% if tonic_rating < 3.25 and tonic_rating >= 2.75 %}_30{% endif %}
+        {% if tonic_rating < 2.75 and tonic_rating >= 2.25 %}_25{% endif %}
+        {% if tonic_rating < 2.25 and tonic_rating >= 1.75 %}_20{% endif %}
+        {% if tonic_rating < 1.75 and tonic_rating >= 1.25 %}_15{% endif %}
+        {% if tonic_rating < 1.25 %}_10{% endif %}">
+            {{ tonic_rating|floatformat:1 }}
+        </td>
+        {% endif %}
         <th>{{ tonic }}</th>
         {% for gin, item in evaluation %}
         {% if item is None %}
-        <td><a href="{% url 'matrix:evaluations' gin.id tonic.id %}" style="text-decoration: none;"><div>-</div></a></td>
+        <td><a href="{% url 'matrix:evaluations' gin.id tonic.id %}" style="text-decoration: none;">
+            <div>-</div>
+        </a></td>
         {% else %}
         <td class="
                 {% if item >= 3.75 %}_40{% endif %}
@@ -54,7 +91,9 @@
                 {% if item < 2.25 and item >= 1.75 %}_20{% endif %}
                 {% if item < 1.75 and item >= 1.25 %}_15{% endif %}
                 {% if item < 1.25 %}_10{% endif %}">
-            <a href="{% url 'matrix:evaluations' gin.id tonic.id %}" style="text-decoration: none;"><div>{{ item|floatformat:1 }}</div></a>
+            <a href="{% url 'matrix:evaluations' gin.id tonic.id %}" style="text-decoration: none;">
+                <div>{{ item|floatformat:1 }}</div>
+            </a>
         </td>
         {% endif %}
         {% endfor %}

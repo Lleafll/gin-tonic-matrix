@@ -37,7 +37,28 @@ def index(request):
                 for evaluation in gin_tonic:
                     mean += evaluation.rating / len(gin_tonic)
                 evaluation_row.append((gin, mean))
-        evaluation_rows.append((tonic, evaluation_row))
+        tonic_rating = 0
+        count = 0
+        for row in evaluation_row:
+            mean = row[1]
+            if mean is not None:
+                tonic_rating += mean
+                count += 1
+        if count > 0:
+            tonic_rating /= count
+        evaluation_rows.append((tonic_rating, tonic, evaluation_row))
+    gin_ratings = []
+    for i in range(len(gins)):
+        gin_mean = 0
+        count = 0
+        for row in evaluation_rows:
+            gin_tonic_mean = row[2][i][1]
+            if gin_tonic_mean is not None:
+                gin_mean += gin_tonic_mean
+                count += 1
+        if count > 0:
+            gin_mean /= count
+        gin_ratings.append(gin_mean)
     return render(
         request,
         "matrix/matrix.html",
@@ -47,7 +68,8 @@ def index(request):
          "gins": gins,
          "tonics": tonics,
          "ingredients": ingredients,
-         "evaluation_rows": evaluation_rows})
+         "evaluation_rows": evaluation_rows,
+         "gin_ratings": gin_ratings})
 
 
 def evaluations(request, gin_id, tonic_id):

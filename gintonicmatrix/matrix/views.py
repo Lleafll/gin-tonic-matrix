@@ -7,10 +7,10 @@ from .models import Drinker, Gin, GinTonicEvaluation, Ingredient, Tonic
 
 
 def index(request):
-    gins = Gin.objects.all()
-    tonics = Tonic.objects.all()
-    drinkers = Drinker.objects.all()
-    ingredients = Ingredient.objects.all()
+    gins = Gin.objects.order_by("name")
+    tonics = Tonic.objects.order_by("name")
+    drinkers = Drinker.objects.order_by("name")
+    ingredients = Ingredient.objects.order_by("name")
     try:
         selected_drinker = Drinker.objects.get(pk=request.POST["drinker"])
     except (KeyError, ValueError, Drinker.DoesNotExist):

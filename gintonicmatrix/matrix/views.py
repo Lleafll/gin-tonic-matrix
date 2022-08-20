@@ -71,7 +71,7 @@ def evaluate(request, gin_id, tonic_id):
     try:
         drinker = Drinker.objects.get(pk=request.POST["drinker"])
         ingredient = Ingredient.objects.get(pk=request.POST["ingredient"])
-        rating = request.POST["ingredient"]
+        rating = request.POST["rating"]
     except (ValueError,
             KeyError,
             Drinker.DoesNotExist,

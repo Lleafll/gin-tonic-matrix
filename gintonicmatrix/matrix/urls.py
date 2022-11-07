@@ -12,5 +12,6 @@ urlpatterns = [
     path(
         "<int:gin_id>/<int:tonic_id>/evaluate",
         views.evaluate,
-        name="evaluate")
+        name="evaluate"),
+    path("ranking", views.ranking, name="ranking")
 ]

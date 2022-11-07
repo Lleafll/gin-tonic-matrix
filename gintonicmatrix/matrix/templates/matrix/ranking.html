@@ -1,0 +1,35 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'matrix/style.css' %}">
+
+<!doctype html>
+
+<h1>Das Gin-Tonic-Ranking</h1>
+
+<p><a href="{% url 'matrix:index' %}">&lt Zur Matrix</a></p>
+
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        <th>Kombination</th>
+        <th>⌀</th>
+        <th>Bewertungen</th>
+        <th>Einzigartige Bewertungen</th>
+    </tr>
+    {% for combination in combinations %}
+    <tr>
+        <td>{{ combination.name }}</td>
+        <td class="
+        {% if combination.rating >= 3.75 %}_40{% endif %}
+        {% if combination.rating < 3.75 and combination.rating >= 3.25 %}_35{% endif %}
+        {% if combination.rating < 3.25 and combination.rating >= 2.75 %}_30{% endif %}
+        {% if combination.rating < 2.75 and combination.rating >= 2.25 %}_25{% endif %}
+        {% if combination.rating < 2.25 and combination.rating >= 1.75 %}_20{% endif %}
+        {% if combination.rating < 1.75 and combination.rating >= 1.25 %}_15{% endif %}
+        {% if combination.rating < 1.25 %}_10{% endif %}">
+            {{ combination.rating|floatformat:2 }}
+        </td>
+        <td>{{ combination.rating_count }}</td>
+        <td>{{ combination.unique_rating_count }}</td>
+    </tr>
+    {% endfor %}
+</table>

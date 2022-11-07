@@ -6,6 +6,8 @@
 
 <h1>Die Gin-Tonic-Matrix</h1>
 
+<p><a href="{% url 'matrix:ranking' %}">&lt Zum Ranking</a></p>
+
 <form action="{% url 'matrix:index' %}" method="post">
     {% csrf_token %}
     <select name="drinker" onchange="this.form.submit()">

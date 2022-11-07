@@ -1,3 +1,6 @@
+import dataclasses
+import itertools
+import operator
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -117,3 +120,36 @@ def evaluate(request, gin_id, tonic_id):
         created=timezone.now()).save()
     return HttpResponseRedirect(
         reverse("matrix:evaluations", args=(gin_id, tonic_id)))
+
+
+@dataclasses.dataclass
+class GinTonicEvaluationCombination:
+    name: str
+    rating: float
+    rating_count: int
+    unique_rating_count: int
+
+
+def _group_func(evaluation):
+    return f"{evaluation.gin}-{evaluation.tonic} + {evaluation.ingredient}"
+
+
+def _generate_combinations(evaluations):
+    combinations = []
+    for key, evaluation in itertools.groupby(evaluations, _group_func):
+        evaluation = list(evaluation)
+        combinations.append(GinTonicEvaluationCombination(
+            key,
+            sum(i.rating for i in evaluation) / len(evaluation),
+            len(evaluation),
+            len({i.drinker for i in evaluation})))
+    return combinations
+
+
+def ranking(request):
+    evaluations = GinTonicEvaluation.objects.order_by(
+        "gin", "tonic", "ingredient")
+    combinations = _generate_combinations(evaluations)
+    combinations.sort(key=operator.attrgetter("rating"), reverse=True)
+    return render(request, "matrix/ranking.html", {
+        "combinations": combinations})

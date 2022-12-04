@@ -134,7 +134,7 @@ def _group_func(evaluation):
     return f"{evaluation.gin}-{evaluation.tonic} + {evaluation.ingredient}"
 
 
-def _generate_combinations(evaluations):
+def _generate_combinations(evaluations) -> list[GinTonicEvaluationCombination]:
     combinations = []
     for key, evaluation in itertools.groupby(evaluations, _group_func):
         evaluation = list(evaluation)
@@ -147,9 +147,11 @@ def _generate_combinations(evaluations):
 
 
 def ranking(request):
+    min_rating_count = int(request.POST.get("min_rating_count", 4))
     evaluations = GinTonicEvaluation.objects.order_by(
         "gin", "tonic", "ingredient")
     combinations = _generate_combinations(evaluations)
+    combinations = [i for i in combinations if i.rating_count >= min_rating_count]
     combinations.sort(key=operator.attrgetter("rating"), reverse=True)
     return render(request, "matrix/ranking.html", {
-        "combinations": combinations})
+        "combinations": combinations, "min_rating_count": min_rating_count})

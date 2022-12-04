@@ -65,3 +65,7 @@ input:hover {
   color: black;
   background-color: #ddd;
 }
+
+label {
+  color: white;
+}

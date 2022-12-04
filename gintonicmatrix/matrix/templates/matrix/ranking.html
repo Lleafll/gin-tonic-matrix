@@ -8,6 +8,13 @@
 
 <p><a href="{% url 'matrix:index' %}">&lt Zur Matrix</a></p>
 
+<form action="{% url 'matrix:ranking' %}" method="post">
+    {% csrf_token %}
+    <label for="countinput">Min. Bewertungen:</label>
+    <input type="number" id="countinput" name="min_rating_count" min="0" value="{{ min_rating_count }}" style="width: 3em">
+    <input type="submit" value="Speichern">
+</form>
+
 <table cellspacing="0" cellpadding="0">
     <tr>
         <th>Kombination</th>
